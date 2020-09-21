@@ -1,14 +1,19 @@
 <template>
   <div class="container">
-    <h2>ガチャシュミレーター</h2>
+    <h3>ガチャシュミレーター</h3>
     <p>
       スマホゲームなどのガチャ確率計算ツール
     </p>
     <hr class="invisible">
     <div class="form">
       <div class="form-group">
-        <label for="">出現率</label>
-        <input :value="prob" type="number" class="form-control">
+        <label for="">当たりの出現率</label>
+        <div class="input-group">
+          <input v-model="prob" type="number" class="form-control">
+          <div class="input-group-append">
+            <span class="input-group-text">%</span>
+          </div>
+        </div>
         <div class="preset-btn-group">
           <div v-for="prob in presetProb" :key="prob" class="preset-btn">
             <button class="btn btn-outline-primary" :data-prob="prob" @click="setProb($event)">
@@ -17,14 +22,17 @@
           </div>
         </div>
         <div class="form-group">
-          <label for="">試行回数</label>
-          <input type="number" class="form-control" :value="count">
+          <label for="">ガチャを試す回数</label>
+          <input v-model="count" class="form-control">
           <div class="preset-btn-group">
             <div v-for="count in [10, 100]" :key="count" class="preset-btn">
               <button class="btn btn-outline-primary" :data-count="count" @click="setCount($event)">
                 {{ count }}
               </button>
             </div>
+            <button class="btn btn-ourtline-primary">
+              +10
+            </button>
           </div>
         </div>
       </div>
@@ -96,6 +104,8 @@ export default {
         2,
         3,
         4,
+        5,
+        6,
         10
       ]
     }
