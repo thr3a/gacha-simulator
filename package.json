@@ -11,6 +11,7 @@
     "lint": "yarn lint:js"
   },
   "dependencies": {
+    "@nuxtjs/toast": "^3.3.1",
     "bootstrap": "^4.5.2",
     "calc-gacha": "^1.0.0",
     "core-js": "^3.6.5",
