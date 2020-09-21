@@ -1,0 +1,26 @@
+@import '~bootstrap/scss/bootstrap';
+
+.result-list {
+  padding-left: 30px;
+  li {
+    margin-bottom: 5px;
+  }
+
+}
+.any-success-prob {
+  font-weight: bold;
+  font-size: larger;
+  color: red;
+}
+.all-fail-prob {
+  font-weight: bold;
+  font-size: larger;
+}
+.count {
+  font-weight: bold;
+}
+
+.all-fail-count {
+  font-weight: bold;
+  color: red;
+}
