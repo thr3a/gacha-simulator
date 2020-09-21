@@ -1,5 +1,9 @@
 @import '~bootstrap/scss/bootstrap';
 
+.container {
+  margin-top: 10px;
+}
+
 .result-list {
   padding-left: 30px;
   li {
@@ -23,4 +27,16 @@
 .all-fail-count {
   font-weight: bold;
   color: red;
+}
+
+.preset-btn {
+  display: inline-block;
+}
+
+.preset-btn-group {
+  margin-bottom: 15px;
+}
+
+label {
+  margin-bottom: 0;
 }
