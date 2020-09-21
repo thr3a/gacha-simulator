@@ -23,7 +23,7 @@
         </div>
         <div class="form-group">
           <label for="">ガチャを試す回数</label>
-          <input v-model="count" class="form-control">
+          <input v-model="count" type="Number" class="form-control">
           <div class="preset-btn-group">
             <template v-for="count in [10, 100]">
               <button :key="count" class="btn btn-outline-primary" :data-count="count" @click="setCount($event)">
@@ -121,20 +121,38 @@ export default {
   },
   watch: {
     prob (val) {
-      this.gacha.setProb(val)
-      this.prob = val
+      if (this.validateProb(val)) {
+        this.gacha.setProb(val)
+      }
     },
     count (val) {
-      this.gacha.count = val
-      this.count = val
+      if (this.validateCount(val)) {
+        this.gacha.count = val
+      }
     }
   },
   methods: {
     setProb (event) {
-      this.prob = event.target.dataset.prob
+      this.prob = Number(event.target.dataset.prob)
     },
     setCount (event) {
-      this.count = event.target.dataset.count
+      this.count = Number(event.target.dataset.count)
+    },
+    validateCount (val) {
+      if (!val) {
+        return false
+      }
+      if (val < 1) {
+        this.$toast.error('試行回数は1以上必須')
+        return false
+      }
+      return true
+    },
+    validateProb (val) {
+      if (!val) {
+        return false
+      }
+      return true
     },
     addCount (num) {
       this.count += Number(num)

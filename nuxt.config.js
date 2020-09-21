@@ -32,8 +32,12 @@ export default {
 
   // Modules (https://go.nuxtjs.dev/config-modules)
   modules: [
+    '@nuxtjs/toast'
   ],
-
+  toast: {
+    position: 'top-center',
+    duration: 2500
+  },
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
   }
