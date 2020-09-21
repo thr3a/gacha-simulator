@@ -1,4 +1,4 @@
-# gache-simulator
+# gacha-simulator
 
 ## Build Setup
 
