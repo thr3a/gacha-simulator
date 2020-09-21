@@ -15,23 +15,32 @@
           </div>
         </div>
         <div class="preset-btn-group">
-          <div v-for="prob in presetProb" :key="prob" class="preset-btn">
-            <button class="btn btn-outline-primary" :data-prob="prob" @click="setProb($event)">
+          <template v-for="prob in presetProb">
+            <button :key="prob" class="btn btn-outline-primary" :data-prob="prob" @click="setProb($event)">
               {{ prob }}
             </button>
-          </div>
+          </template>
         </div>
         <div class="form-group">
           <label for="">ガチャを試す回数</label>
           <input v-model="count" class="form-control">
           <div class="preset-btn-group">
-            <div v-for="count in [10, 100]" :key="count" class="preset-btn">
-              <button class="btn btn-outline-primary" :data-count="count" @click="setCount($event)">
+            <template v-for="count in [10, 100]">
+              <button :key="count" class="btn btn-outline-primary" :data-count="count" @click="setCount($event)">
                 {{ count }}
-              </button>
-            </div>
-            <button class="btn btn-ourtline-primary">
+              </button>&nbsp;
+            </template>
+            <button class="btn btn-outline-primary" @click="addCount(10)">
               +10
+            </button>
+            <button class="btn btn-outline-primary" @click="addCount(100)">
+              +100
+            </button>
+            <button class="btn btn-outline-danger" @click="addCount(-10)">
+              -10
+            </button>
+            <button class="btn btn-outline-danger" @click="addCount(-100)">
+              -100
             </button>
           </div>
         </div>
@@ -126,6 +135,9 @@ export default {
     },
     setCount (event) {
       this.count = event.target.dataset.count
+    },
+    addCount (num) {
+      this.count += Number(num)
     }
   }
 
