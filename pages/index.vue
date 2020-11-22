@@ -84,8 +84,9 @@ export default {
   },
   data: () => {
     const p = 1
-    const c = 100
+    const c = 30
     return {
+      minCount: 10,
       prob: p,
       count: c,
       gacha: new Gacha(p, c),
@@ -123,6 +124,9 @@ export default {
     count (val) {
       if (this.validateCount(val)) {
         this.gacha.count = val
+      } else {
+        this.count = this.minCount
+        this.$toast.error(`試行回数は${this.minCount}以上必須`)
       }
     }
   },
@@ -134,17 +138,16 @@ export default {
       this.count = Number(event.target.dataset.count)
     },
     validateCount (val) {
-      if (!val) {
-        return false
+      if (val === '') {
+        return true
       }
-      if (val < 1) {
-        this.$toast.error('試行回数は1以上必須')
+      if (val < 10) {
         return false
       }
       return true
     },
     validateProb (val) {
-      if (!val) {
+      if (val === '') {
         return false
       }
       return true
