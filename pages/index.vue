@@ -25,19 +25,14 @@
           <label for="">ガチャを試す回数</label>
           <input v-model="count" type="Number" class="form-control">
           <div class="preset-btn-group">
-            <template v-for="count in [10, 100]">
-              <button :key="count" class="btn btn-outline-primary" :data-count="count" @click="setCount($event)">
-                {{ count }}
-              </button>&nbsp;
-            </template>
             <button class="btn btn-outline-primary" @click="addCount(10)">
               +10
             </button>
-            <button class="btn btn-outline-primary" @click="addCount(100)">
-              +100
-            </button>
             <button class="btn btn-outline-danger" @click="addCount(-10)">
               -10
+            </button>
+            <button class="btn btn-outline-primary" @click="addCount(100)">
+              +100
             </button>
             <button class="btn btn-outline-danger" @click="addCount(-100)">
               -100
