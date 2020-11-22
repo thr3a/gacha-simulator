@@ -6,40 +6,52 @@
     </p>
     <hr class="invisible">
     <div class="form">
-      <div class="form-group">
-        <label for="">当たりの出現率</label>
-        <div class="input-group">
-          <input v-model="prob" type="number" class="form-control">
-          <div class="input-group-append">
-            <span class="input-group-text">%</span>
-          </div>
-        </div>
-        <div class="preset-btn-group">
-          <template v-for="prob in presetProb">
-            <button :key="prob" class="btn btn-outline-primary" :data-prob="prob" @click="setProb($event)">
-              {{ prob }}
-            </button>
-          </template>
-        </div>
+      <ValidationObserver ref="myform">
         <div class="form-group">
-          <label for="">ガチャを試す回数</label>
-          <input v-model="count" type="Number" class="form-control">
-          <div class="preset-btn-group">
-            <button class="btn btn-outline-primary" @click="addCount(10)">
-              +10
-            </button>
-            <button class="btn btn-outline-danger" @click="addCount(-10)">
-              -10
-            </button>
-            <button class="btn btn-outline-primary" @click="addCount(100)">
-              +100
-            </button>
-            <button class="btn btn-outline-danger" @click="addCount(-100)">
-              -100
-            </button>
+          <ValidationProvider v-slot="{ errors }" rules="min_value:0.01|required|max_value:99">
+            <label for="">当たりの出現率</label>
+            <div class="input-group">
+              <input v-model="prob" type="number" class="form-control" name="出現率">
+              <div class="input-group-append">
+                <span class="input-group-text">%</span>
+              </div>
+            </div>
+            <span v-show="errors.length>0">
+              {{ errors[0] }}
+            </span>
+            <div class="preset-btn-group">
+              <template v-for="prob in presetProb">
+                <button :key="prob" class="btn btn-outline-primary" :data-prob="prob" @click="setProb($event)">
+                  {{ prob }}
+                </button>
+              </template>
+            </div>
+          </ValidationProvider>
+          <div class="form-group">
+            <ValidationProvider v-slot="{ errors }" rules="min_value:10|required">
+              <label for="">ガチャを試す回数</label>
+              <input v-model="count" type="number" class="form-control" name="回数">
+              <span v-show="errors.length>0">
+                {{ errors[0] }}
+              </span>
+            </ValidationProvider>
+            <div class="preset-btn-group">
+              <button class="btn btn-outline-primary" @click="addCount(10)">
+                +10
+              </button>
+              <button class="btn btn-outline-danger" @click="addCount(-10)">
+                -10
+              </button>
+              <button class="btn btn-outline-primary" @click="addCount(100)">
+                +100
+              </button>
+              <button class="btn btn-outline-danger" @click="addCount(-100)">
+                -100
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      </ValidationObserver>
     </div>
     <hr class="invisible">
     <ul class="result-list">
@@ -86,6 +98,7 @@ export default {
     const p = 1
     const c = 30
     return {
+      value: 30,
       minCount: 10,
       prob: p,
       count: c,
@@ -121,12 +134,10 @@ export default {
         this.gacha.setProb(val)
       }
     },
-    count (val) {
-      if (this.validateCount(val)) {
+    async count (val) {
+      const is_valid = await this.$refs.myform.validate('count')
+      if (is_valid) {
         this.gacha.count = val
-      } else {
-        this.count = this.minCount
-        this.$toast.error(`試行回数は${this.minCount}以上必須`)
       }
     }
   },
@@ -153,7 +164,7 @@ export default {
       return true
     },
     addCount (num) {
-      this.count += Number(num)
+      this.count = Number(this.count) + Number(num)
     }
   }
 

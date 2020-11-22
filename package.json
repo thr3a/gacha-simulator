@@ -12,13 +12,13 @@
     "deploy": "yarn run nuxt generate && firebase deploy"
   },
   "dependencies": {
-    "@nuxtjs/toast": "^3.3.1",
     "bootstrap": "^4.5.2",
     "calc-gacha": "^1.0.0",
     "core-js": "^3.6",
     "node-sass": "^4.14",
     "nuxt": "^2.0",
-    "sass-loader": "^10.0"
+    "sass-loader": "^10.0",
+    "vee-validate": "^3.4.5"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^3.1.0",
